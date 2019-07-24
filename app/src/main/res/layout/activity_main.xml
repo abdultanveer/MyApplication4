@@ -10,7 +10,9 @@
         android:id="@+id/title_et"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="162dp"
         android:hint="enter title"
+        app:layout_constraintBottom_toTopOf="@+id/todolist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,25 +29,25 @@
 
     <Button
         android:id="@+id/buttonsave"
-        android:onClick="clickListener"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="36dp"
+        android:onClick="clickListener"
         android:text="save"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/subtitle_et" />
 
     <Button
         android:id="@+id/buttonget"
-        android:onClick="clickListener"
-
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
         android:layout_marginStart="71dp"
         android:layout_marginLeft="71dp"
         android:layout_marginTop="36dp"
+        android:onClick="clickListener"
         android:text="get"
         app:layout_constraintStart_toEndOf="@+id/buttonsave"
         app:layout_constraintTop_toBottomOf="@+id/subtitle_et" />
@@ -53,12 +55,22 @@
     <TextView
         android:id="@+id/textViewresult"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="44dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
         android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonget"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/buttonget" />
+
+    <ListView
+        android:id="@+id/todolist"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonsave" />
+        app:layout_constraintTop_toBottomOf="@+id/title_et" />
 
 </android.support.constraint.ConstraintLayout>

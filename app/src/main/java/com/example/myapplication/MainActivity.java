@@ -1,15 +1,19 @@
 package com.example.myapplication;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.example.myapplication.data.DAO;
+import com.example.myapplication.data.TodoContract.TodoEntry;
+
 
 public class MainActivity extends AppCompatActivity {
     EditText titleEditText, subTitleEditText;
@@ -17,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public  static  String KEY_TITLE = "title";
     public  static  String KEY_SUBTITLE = "subtitle";
     DAO dao;
+    ListView todoListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,14 +30,23 @@ public class MainActivity extends AppCompatActivity {
         //4
         dao = new DAO(this);
         dao.openDb();
+        Cursor cursor =  dao.readRows();
 
         titleEditText = findViewById(R.id.title_et);
         subTitleEditText = findViewById(R.id.subtitle_et);
-        if(savedInstanceState !=null){
-            titleEditText.setText(savedInstanceState.getString(KEY_TITLE));
-            subTitleEditText.setText(savedInstanceState.getString(KEY_SUBTITLE));
+        todoListView = findViewById(R.id.todolist);
 
-        }
+        SimpleCursorAdapter cursorAdapter = new SimpleCursorAdapter(this,
+                //android.R.layout.simple_list_item_2,
+                R.layout.list_row,
+                cursor,
+                new String[]{TodoEntry.COLUMN_NAME_TITLE, TodoEntry.COLUMN_NAME_SUBTITLE},
+               // new int[]{android.R.id.text1, android.R.id.text2}
+                new int[]{R.id.textViewtitle,R.id.textViewsubtitle});
+
+        todoListView.setAdapter(cursorAdapter);
+
+
     }
 
     @Override
@@ -97,6 +111,8 @@ public class MainActivity extends AppCompatActivity {
                 String subTitle = subTitleEditText.getText().toString();
 
                 dao.createRow(title,subTitle);
+                titleEditText.setText("");
+                subTitleEditText.setText("");
                 break;
         }
     }

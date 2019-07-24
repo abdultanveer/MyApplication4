@@ -52,8 +52,11 @@ public class DAO {
         String subtitle = cursor.getString(subtitleIndex);
 
         return title +"\n" + subtitle;
+    }
 
-
+    public Cursor readRows(){
+        return  database.query(TodoEntry.TABLE_NAME,null,null,
+                null,null,null,null);
     }
     public void updateRow(){}
     public void deleteRow(){}
