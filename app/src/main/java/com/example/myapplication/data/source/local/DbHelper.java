@@ -1,9 +1,9 @@
-package com.example.myapplication.data;
+package com.example.myapplication.data.source.local;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.example.myapplication.data.TodoContract.TodoEntry;
+import com.example.myapplication.data.source.local.TodoContract.TodoEntry;
 
 /**
  *2. This class helps me create a db and its table

@@ -1,10 +1,12 @@
-package com.example.myapplication.data;
+package com.example.myapplication.data.source.local;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import com.example.myapplication.data.TodoContract.TodoEntry;
+
+import com.example.myapplication.data.TodoNote;
+import com.example.myapplication.data.source.local.TodoContract.TodoEntry;
 
 
 /**
@@ -54,11 +56,35 @@ public class DAO {
         return title +"\n" + subtitle;
     }
 
+    public TodoNote readRow1(){
+        //database.rawQuery("select * from notes_table")
+        Cursor cursor = database.query(TodoEntry.TABLE_NAME,null,null,
+                null,null,null,null);
+
+        cursor.moveToLast(); // pointing the cursor to last row
+
+        int titleIndex = cursor.getColumnIndexOrThrow(TodoEntry.COLUMN_NAME_TITLE);
+        int subtitleIndex = cursor.getColumnIndexOrThrow(TodoEntry.COLUMN_NAME_SUBTITLE);
+
+        String title = cursor.getString(titleIndex);
+        String subtitle = cursor.getString(subtitleIndex);
+
+        return new TodoNote(title,subtitle);
+    }
+
     public Cursor readRows(){
         return  database.query(TodoEntry.TABLE_NAME,null,null,
                 null,null,null,null);
     }
     public void updateRow(){}
     public void deleteRow(){}
+
+    public void createRow(TodoNote note) {
+        ContentValues values = new ContentValues();
+        values.put(TodoEntry.COLUMN_NAME_TITLE, note.getTitle());
+        values.put(TodoEntry.COLUMN_NAME_SUBTITLE, note.getSubTitle());
+
+        database.insert(TodoEntry.TABLE_NAME,null,values);
+    }
 
 }

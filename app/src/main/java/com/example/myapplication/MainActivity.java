@@ -11,8 +11,9 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.example.myapplication.data.DAO;
-import com.example.myapplication.data.TodoContract.TodoEntry;
+import com.example.myapplication.data.source.local.DAO;
+import com.example.myapplication.data.source.local.TodoContract.TodoEntry;
+import com.example.myapplication.data.TodoNote;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -102,15 +103,20 @@ public class MainActivity extends AppCompatActivity {
     public void clickListener(View view) {
         switch (view.getId()){
             case R.id.buttonget://7
-              String result =  dao.readRow();
+                // String result =  dao.readRow();
+                TodoNote note = dao.readRow1();
                 TextView resultTextView = findViewById(R.id.textViewresult);
-                resultTextView.setText(result);
+                resultTextView.setText(note.getTitle()+"\n"+note.getSubTitle());
                 break;
             case R.id.buttonsave://4a
                 String title = titleEditText.getText().toString();
                 String subTitle = subTitleEditText.getText().toString();
 
-                dao.createRow(title,subTitle);
+                TodoNote note1 = new TodoNote(title,subTitle);
+
+               // dao.createRow(title,subTitle);
+                dao.createRow(note1);
+
                 titleEditText.setText("");
                 subTitleEditText.setText("");
                 break;
