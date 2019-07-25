@@ -104,11 +104,16 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.buttonget://7
                 // String result =  dao.readRow();
-                TodoNote note = dao.readRow1();
                 TextView resultTextView = findViewById(R.id.textViewresult);
-                resultTextView.setText(note.getTitle()+"\n"+note.getSubTitle());
+
+                ReadAsyncTask readAsyncTask = new ReadAsyncTask(resultTextView,dao);
+                readAsyncTask.execute();
+
+                /*TodoNote note = dao.readRow1();
+                resultTextView.setText(note.getTitle()+"\n"+note.getSubTitle());*/
                 break;
             case R.id.buttonsave://4a
+
                 String title = titleEditText.getText().toString();
                 String subTitle = subTitleEditText.getText().toString();
 
