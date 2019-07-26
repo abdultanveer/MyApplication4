@@ -119,11 +119,13 @@ public class MainActivity extends AppCompatActivity {
 
                 TodoNote note1 = new TodoNote(title,subTitle);
 
+                InsertAsyncTask insertAsyncTask = new InsertAsyncTask(dao,titleEditText,subTitleEditText);
+                insertAsyncTask.execute(note1);
                // dao.createRow(title,subTitle);
-                dao.createRow(note1);
+                /*dao.createRow(note1);
 
                 titleEditText.setText("");
-                subTitleEditText.setText("");
+                subTitleEditText.setText("");*/
                 break;
         }
     }
