@@ -2,6 +2,11 @@ package com.example.myapplication;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -84,4 +89,40 @@ completed buffer for debugging. */
 
     }
 
+
+    @Override
+    protected void onPostExecute(String json) {
+        super.onPostExecute(json);
+        parseJson(json);
+    }
+
+    private void parseJson(String response) {
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(response);
+            JSONArray itemsArray = jsonObject.getJSONArray("items");
+
+            for(int i = 0; i<itemsArray.length(); i++){
+                JSONObject book = itemsArray.getJSONObject(i); //Get the current item
+                String title=null;
+                String authors=null;
+                JSONObject volumeInfo = book.getJSONObject("volumeInfo");
+                try {
+                    title = volumeInfo.getString("title");
+                    authors = volumeInfo.getString("authors");
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+//If both a title and author exist, update the TextViews and return
+                if (title != null && authors != null){
+
+                    return;
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
