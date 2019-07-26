@@ -44,6 +44,7 @@ public class DAO {
         //database.rawQuery("select * from notes_table")
         Cursor cursor = database.query(TodoEntry.TABLE_NAME,null,null,
                 null,null,null,null);
+        cursor.close();
 
         cursor.moveToLast(); // pointing the cursor to last row
 
